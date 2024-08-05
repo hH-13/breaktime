@@ -18,11 +18,14 @@ const injectCss = async (tabId) => {
   await chrome.scripting.insertCSS(cssArgs);
 };
 
-const injectJs = async (tabId) => {
+const injectGoogleCalendarJs = async (tabId) => {
   const jsArgs = { files: ["./code/google.js"], target: { tabId } };
   await chrome.scripting.executeScript(jsArgs);
 };
-
+const injectOutlookCalendarJs = async (tabId) => {
+  const jsArgs = { files: ["./code/outlook.js"], target: { tabId } };
+  await chrome.scripting.executeScript(jsArgs);
+};
 const removeCss = async (tabId) => {
   const cssArgs = { files: ["./code/style.css"], target: { tabId } };
   await chrome.scripting.removeCSS(cssArgs);
@@ -39,8 +42,10 @@ chrome.action.onClicked.addListener(async (tab) => {
   if (nextState === "ON") {
     console.log("injecting css and js");
     await injectCss(tab.id);
-    if (tab.url.startsWith(google)) {
-      await injectJs(tab.id);
+    if (tab.url.startsWith(outlookStart) && tab.url.includes(outlookEnd)) {
+      await injectOutlookCalendarJs(tab.id)
+    } else if (tab.url.startsWith(google)) {
+      await injectGoogleCalendarJs(tab.id);
     }
   } else if (nextState === "OFF") {
     chrome.tabs.sendMessage(tab.id, { action: "stopGame" });
