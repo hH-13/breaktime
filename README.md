@@ -1,3 +1,11 @@
+## todo
+- Outlook support
+- base speed should depend on the number of events?
+- ball/striker sizing?
+- event deletion - stakes too high?
+- blur background when game over dialog box
+- ??
+
 # BreakTime
 
 <img src="./images/breaktime-final-readme.gif" alt="BreakTime running inside Google Calendar" width="500px" height="500px" />
