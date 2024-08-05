@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "BreakTime",
-  "description": "Run Brick Breaker (aka Breakout) inside Google Calendar!",
-  "version": "1.0",
+  "name": "BreakTimeExtended",
+  "description": "Run Brick Breaker (aka Breakout) inside your Google and Outlook Calendars!",
+  "version": "1.1",
   "action": {
     "default_icon": {
       "16": "images/icon-16.png",
@@ -17,9 +17,15 @@
     "48": "images/icon-48.png",
     "128": "images/icon-128.png"
   },
-  "permissions": ["activeTab", "scripting"],
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
   "background": {
     "service_worker": "code/background.js",
-    "matches": ["https://calendar.google.com/*"]
+    "matches": [
+      "https://outlook.*.com/calendar/*",
+      "https://calendar.google.com/*"
+    ]
   }
 }
