@@ -243,6 +243,7 @@ function createEventDeclineModal({
 
   const dismiss = () => {
     console.log("DISMISSING");
+    mainElt.classList.remove('modal_bg_blur')
     modal.style.animation = "fade-out 0.5s ease both";
     setTimeout(() => {
       modal.remove();
@@ -318,6 +319,7 @@ function createEventDeclineModal({
     parent: yesButton,
     textContent: "Yes, decline my meetings!",
   });
+  mainElt.classList.add('modal_bg_blur');
 }
 
 function clamp(min, max, value) {
