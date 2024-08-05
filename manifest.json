@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "BreakTimeExtended",
   "description": "Run Brick Breaker (aka Breakout) inside your Google and Outlook Calendars!",
-  "version": "1.1",
+  "version": "1.5",
   "action": {
     "default_icon": {
       "16": "images/icon-16.png",
