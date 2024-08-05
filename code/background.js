@@ -4,7 +4,9 @@ chrome.runtime.onInstalled.addListener(() => {
   });
 });
 
-const calendar = "https://calendar.google.com/calendar/";
+const google = "https://calendar.google.com/calendar/";
+const outlookStart = "https://outlook";
+const outlookEnd = ".com/calendar";
 
 const getNextState = async (tabId) => {
   const prevState = await chrome.action.getBadgeText({ tabId });
@@ -28,21 +30,21 @@ const removeCss = async (tabId) => {
 
 chrome.action.onClicked.addListener(async (tab) => {
   let nextState;
-  if (tab.url.startsWith(calendar)) {
-    nextState = await getNextState(tab.id);
-    await chrome.action.setBadgeText({
-      tabId: tab.id,
-      text: nextState === "ON" ? "ON" : "",
-    });
+  nextState = await getNextState(tab.id);
+  await chrome.action.setBadgeText({
+    tabId: tab.id,
+    text: nextState === "ON" ? "ON" : "",
+  });
 
-    if (nextState === "ON") {
-      console.log("injecting css and js");
-      await injectCss(tab.id);
+  if (nextState === "ON") {
+    console.log("injecting css and js");
+    await injectCss(tab.id);
+    if ((tab.url.startsWith(outlookStart) && tab.url.includes(outlookEnd)) || (tab.url.startsWith(google))) {
       await injectJs(tab.id);
-    } else if (nextState === "OFF") {
-      chrome.tabs.sendMessage(tab.id, { action: "stopGame" });
-      await removeCss(tab.id);
     }
+  } else if (nextState === "OFF") {
+    chrome.tabs.sendMessage(tab.id, { action: "stopGame" });
+    await removeCss(tab.id);
   }
 });
 
