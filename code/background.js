@@ -19,7 +19,7 @@ const injectCss = async (tabId) => {
 };
 
 const injectJs = async (tabId) => {
-  const jsArgs = { files: ["./code/main.js"], target: { tabId } };
+  const jsArgs = { files: ["./code/google.js"], target: { tabId } };
   await chrome.scripting.executeScript(jsArgs);
 };
 
@@ -39,7 +39,7 @@ chrome.action.onClicked.addListener(async (tab) => {
   if (nextState === "ON") {
     console.log("injecting css and js");
     await injectCss(tab.id);
-    if ((tab.url.startsWith(outlookStart) && tab.url.includes(outlookEnd)) || (tab.url.startsWith(google))) {
+    if (tab.url.startsWith(google)) {
       await injectJs(tab.id);
     }
   } else if (nextState === "OFF") {
