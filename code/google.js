@@ -421,8 +421,8 @@ function main() {
   const BALL_SIZE = 25;
   const RADIUS = BALL_SIZE / 2;
   const TICK_TIME = 50;
-  const BASE_SPEED = 10;
-  const PADDLE_SPEED = 12.5;
+  let BASE_SPEED = 10;
+  let PADDLE_SPEED = 12.5;
   const STOP_AFTER_THIS_MANY_TICKS = 20000;
 
   const mainElt = document.querySelector("div[role='main']");
@@ -1094,7 +1094,7 @@ function main() {
     return inner.length === 2;
   }
 
-  function maybeCollideWithEvent(event, ball, direction, hasCollided, tickId) {
+  function maybeCollideWithEvent(event, event_num, total_events, ball, direction, hasCollided, tickId) {
     if (event.dataset.intersected) {
       return;
     }
@@ -1118,7 +1118,12 @@ function main() {
         direction,
         hasCollided
       );
-      console.log(`[${tickId}] BOUNCE? ${bounced}: ${event.textContent}`);
+      BASE_SPEED = (BASE_SPEED < 30) ? (BASE_SPEED * (1.0 + (0.1 * event_num / total_events))) : 30;
+      PADDLE_SPEED = (PADDLE_SPEED < 35) ? (PADDLE_SPEED * (1.0 + (0.09 * event_num / total_events))) : 35;
+      console.log(`[${tickId}] BOUNCE? ${bounced}: ${event.textContent} | 
+                New Base Speed: ${BASE_SPEED} |
+                New Paddle Speed: ${PADDLE_SPEED} |
+                Events Left: ${event_num}/${total_events} |`);
     }
   }
 
@@ -1292,17 +1297,17 @@ function main() {
       stopPaddleListeners();
     }
 
-    function allEventsAreCleared() {
+    function getRemainingEvents() {
       // This is going to have a bug around declining multi-day all day events,
       // since we shatter the whole event but only set the dataset property on
       // one of them. I think this is hard to fix and basically fine so I'm not
       // doing anything about it.
       const events = getEvents();
-      const isHiddenOrCleared = (event) => {
+      const isNOTHiddenOrCleared = (event) => {
         const bounds = translatedBounds(event, determineIsAllDay(event));
-        return bounds === null || event.dataset.intersected === "true";
+        return !(bounds === null || event.dataset.intersected === "true");
       };
-      return Array.from(events).every(isHiddenOrCleared);
+      return Array.from(events).filter(isNOTHiddenOrCleared);
     }
 
     function loop(timestamp) {
@@ -1325,7 +1330,8 @@ function main() {
           hasCollided
         );
 
-        if (allEventsAreCleared()) {
+        const remainingEvents = getRemainingEvents().length;
+        if (remainingEvents === 0) {
           makeWonGameModal();
           handleCleanup();
           return;
@@ -1338,9 +1344,13 @@ function main() {
         }
 
         const collidedWithPaddle = handlePaddleCollision();
-        getEvents().forEach((event) => {
+        const events = getEvents();
+        const total_events = events.length;
+        events.forEach((event, i) => {
           maybeCollideWithEvent(
             event,
+            remainingEvents,
+            total_events,
             nextBall,
             direction,
             hasCollided,
