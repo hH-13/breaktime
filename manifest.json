@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "BreakTimeExtended",
   "description": "Run Brick Breaker (aka Breakout) inside your Google and Outlook Calendars!",
-  "version": "1.5",
+  "version": "2",
   "action": {
     "default_icon": {
       "16": "images/icon-16.png",
@@ -22,10 +22,18 @@
     "scripting"
   ],
   "background": {
+    "scripts": [
+      "code/background.js"
+    ],
     "service_worker": "code/background.js",
     "matches": [
       "https://outlook.*.com/calendar/*",
       "https://calendar.google.com/*"
     ]
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "hh-13@github.com"
+    }
   }
 }
