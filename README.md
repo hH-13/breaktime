@@ -6,6 +6,11 @@
 - [x] blur background when game over dialog box
 - [ ] ??
 
+## Try it out!
+- [Firefox](https://addons.mozilla.org/en-US/firefox/addon/breaktimeextended/)
+- [Edge](https://microsoftedge.microsoft.com/addons/detail/breaktimeextended/)
+- [Chrome (the original version, I didn't pay the Google Developer Tax)](https://chromewebstore.google.com/detail/breaktime/efajcgehdfpliglonbkjmifmibpphafk) 
+
 # BreakTime
 
 <img src="./images/breaktime-final-readme.gif" alt="BreakTime running inside Google Calendar" width="500px" height="500px" />
