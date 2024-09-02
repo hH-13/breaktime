@@ -1,10 +1,10 @@
 ## todo
-- Outlook support
-- base speed should depend on the number of events?
-- ball/striker sizing?
-- event deletion - stakes too high?
-- blur background when game over dialog box
-- ??
+- [x] Outlook support
+- [x] base speed should depend on the number of events?
+- [ ] ball/striker sizing?
+- [x] event deletion - stakes too high?
+- [x] blur background when game over dialog box
+- [ ] ??
 
 # BreakTime
 
