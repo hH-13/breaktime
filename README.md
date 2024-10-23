@@ -8,7 +8,7 @@
 
 ## Try it out!
 - [Firefox](https://addons.mozilla.org/en-US/firefox/addon/breaktimeextended/)
-- [Edge](https://microsoftedge.microsoft.com/addons/detail/breaktimeextended/)
+- [Edge](https://microsoftedge.microsoft.com/addons/detail/breaktimeextended/ijmijbdphmkefjlmlaghidclgndeljbj)
 - [Chrome (the original version, I didn't pay the Google Developer Tax)](https://chromewebstore.google.com/detail/breaktime/efajcgehdfpliglonbkjmifmibpphafk) 
 
 # BreakTime
